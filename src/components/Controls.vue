@@ -1,0 +1,110 @@
+<template>
+    <div>
+        <div class="controls">
+            <div class="irrigation m-2">
+                <img src="../assets/raindrops@2x.png" alt="">
+                <span class="irrigate">Irrigate</span>
+                <input type="checkbox" @change="irrigation" v-model="irrigate" value="irrigate" name="" id="">
+            </div>
+            <div class="ventilation m-2">
+                <img src="../assets/fan@2x.png" alt="">
+                <span class="fan">Ventilation</span>
+                <input type="checkbox" @change="ventilation" v-model="ventilate" value="ventilate" name="" id="ventilation">
+            </div>
+          <div>
+
+          </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return{
+          irrigate:"",
+          ventilate:""
+        }
+    },
+  methods:{
+      ventilation(){
+        console.log(this.ventilate)
+      },
+    irrigation(){
+      console.log(this.irrigate)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import "../variables.scss ";
+
+.controls{
+    display: flex;
+
+  /*Radio*/
+  input[type="checkbox"]{
+    position: relative;
+    width: 40px;
+    height: 20px;
+    border: 2px solid #c6c6c6;
+    -webkit-appearance: none;
+    outline: none;
+    border-radius: 20px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,.2);
+    transition:all .5s;
+  }
+  input:checked[type="checkbox"]{
+    border: 2px solid $bold-green;
+  }
+  input[type="checkbox"]:before{
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    top: 2px;
+    left: 2px;
+    transform: scale(1.1);
+    background: #c6c6c6;
+    transition: all .5s;
+  }
+  input:checked[type="checkbox"]:before{
+    left: 20px;
+    background: $bold-green;
+    transition: all .5s;
+  }
+
+
+  .irrigation{
+        img{
+            height:30px;
+            width:auto;
+            margin: 5px 0;
+        }
+
+         .irrigate{
+            margin: 5px 0;
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .ventilation{
+        img{
+            height:30px;
+            width:auto;
+            margin: 5px 0;
+        }
+        .fan{
+            margin: 5px 0;
+        }
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+</style>
