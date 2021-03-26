@@ -5,7 +5,7 @@
     </div>
     <div class="details">
       <div class="value">
-        <span>36 C</span>
+        <span>{{ temperature }}&#176C</span>
       </div>
       <div class="description">
         <span>Temperature</span>
@@ -18,10 +18,28 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import {mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
+import axios from 'axios';
+
 export default {
-  name: "Temperature"
+  name: "Temperature",
+  computed:{
+    ...mapGetters([
+      'temperature'
+    ])
+  },
+  created() {
+    axios.get("http://192.168.176.229/sensorValue")
+    .then((data)=>{
+      console.log(data.data['Temperature'])
+      console.log(data.data['Humidity'])
+    })
+  }
 }
 </script>
+
 <style lang="scss" scoped>
 @import "../variables.scss ";
 .temperature{

@@ -27,12 +27,27 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import {mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      connection:null,
     }
+  },
+  methods:{
+    ...mapActions([
+      'getValues'
+    ]),
+  },
+  created() {
+    setInterval(()=>{
+      //this code runs every second
+    this.getValues();
+    }, 10000);
   }
 }
 </script>

@@ -5,7 +5,8 @@
       </div>
       <div class="details">
         <div class="value">
-          <span>80%</span>
+          <span v-if="humidity <= 70" class="not-ok">{{ humidity }}%</span>
+          <span v-else>{{ humidity }}%</span>
         </div>
         <div class="description">
           <span>Humidity</span>
@@ -17,12 +18,22 @@
     </div>
 </template>
 <script>
+
+import { mapState } from 'vuex';
+import {mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
+
 export default {
     data() {
         return{
 
         }
     },
+  computed:{
+      ...mapGetters([
+        'humidity'
+      ])
+  }
 }
 </script>
 
@@ -59,6 +70,12 @@ export default {
   }
   &:hover{
     background: $hover-green;
+  }
+  .ok{
+    color: $bold-green;
+  }
+  .not-ok{
+    color: $red;
   }
 }
 </style>

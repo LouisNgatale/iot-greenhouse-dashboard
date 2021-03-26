@@ -5,7 +5,7 @@
     </div>
     <div class="details">
       <div class="value">
-        <span>54%</span>
+        <span>{{ moisture }}%</span>
       </div>
       <div class="description">
         <span>Moisture</span>
@@ -18,8 +18,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import {mapActions} from 'vuex';
+import {mapGetters} from 'vuex';
 export default {
-  name: "Moisture"
+  name: "Moisture",
+  computed:{
+    ...mapGetters([
+      'moisture'
+    ])
+  }
 }
 </script>
 
