@@ -1,6 +1,6 @@
-# greenhouse-dashboard
+# IoT Greenhouse dashboard
 
-> Greenhouse dashboard frontend for controling
+> Dashboard web application frontend for remotely controlling irrigation, ventillation and monitoring a greenhouse from anywhere!
 
 ## Build Setup
 
