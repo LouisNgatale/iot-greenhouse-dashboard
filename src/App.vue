@@ -5,7 +5,7 @@
           <banner></banner>
         </div>
         <div class="row justify-content-start">
-			<div class="col-12 justify-content-start p-4 containers">
+			<div class="col-12 justify-content-evenly p-4 containers">
 				<div class="greetings">
 					<div class="image mb-2">
 						<img src="./assets/sunny.png">
@@ -75,6 +75,18 @@
 					</div>
 				</div>
 				<div class="global humidity">
+						<div class="image mb-2">
+							<img src="./assets/humidity.png">
+						</div>
+						<div class="sub-heading">
+							Outside Humidity
+						</div>
+
+						<div class="mb-2 humidity_value value">
+							80%
+						</div>
+				</div>
+				<div class="global controls">
 						<div class="image mb-2">
 							<img src="./assets/humidity.png">
 						</div>
@@ -159,7 +171,7 @@ export default {
 	}
 
 	.sub-heading{
-		color: $grey;
+		color: $white;
 	}
 	
 	.global.temperature{
@@ -176,6 +188,15 @@ export default {
 	.global.humidity{
 		background: $light_grey;
 		width: 454px;
+		border-radius: 12px;
+		padding: 20px 21px;
+		margin:0 13px;
+		height: 100%;
+  		box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2);
+	}
+	.global.controls{
+		background: $light_grey;
+		width: 274px;
 		border-radius: 12px;
 		padding: 20px 21px;
 		margin:0 13px;
