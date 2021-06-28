@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <div class="container-fluid">
-        <div class="row px-5 pt-2">
+        <!-- <div class="row px-5 pt-2">
           <banner></banner>
-        </div>
+        </div> -->
         <div class="row justify-content-start">
 			<div class="col-12 justify-content-evenly p-4 containers">
 				<div class="greetings">
@@ -29,7 +29,7 @@
 						</div>
 
 						<div class="mb-2 temperature_value value">
-							22.5
+							{{ values.temperature }}&deg;C
 						</div>
 					</div>
 					<div class="humidity">
@@ -41,7 +41,7 @@
 						</div>
 
 						<div class="mb-2 humidity_value value">
-							80%
+							{{ values.humidity }}%
 						</div>
 					</div>
 					<div class="moisture">
@@ -61,7 +61,7 @@
         </div>
 
         <div class="row">
-			<div class="col-12 justify-content-start p-4 containers">
+			<div class="col-12 justify-content-evenly p-4 containers">
 				<div class="global temperature">
 					<div class="image mb-2">
 						<img src="./assets/temperature.png">
@@ -87,16 +87,7 @@
 						</div>
 				</div>
 				<div class="global controls">
-						<div class="image mb-2">
-							<img src="./assets/humidity.png">
-						</div>
-						<div class="sub-heading">
-							Outside Humidity
-						</div>
-
-						<div class="mb-2 humidity_value value">
-							80%
-						</div>
+					<controls/>
 				</div>
 			</div>
         </div>
@@ -108,12 +99,28 @@
 import { mapState } from 'vuex';
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
+import Controls from './components/Controls.vue';
+import firebase from "./firebase";
+
+var dht_ref = firebase.ref("/DHT11");
+var water_level_ref = firebase.ref("/Water Level");
+var irrigation_ref = firebase.ref("/irrigationState");
+var ventilation_ref = firebase.ref("/ventilationState");
+
 export default {
+  components: { Controls },
   name: 'app',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
       connection:null,
+	  values: {
+		temperature:'',
+		humidity:'',
+		water_level:'',
+		irrigation_state:'',
+		ventilation_state:''
+	  }
     }
   },
   methods:{
@@ -122,10 +129,11 @@ export default {
     ]),
   },
   created() {
-    setInterval(()=>{
-      //this code runs every second
-    this.getValues();
-    }, 10000);
+    dht_ref.on('value', (snapshot) => {
+		this.values.temperature = snapshot.val().Temperature;
+		this.values.humidity = snapshot.val().Humidity;
+		// updateStarCount(postElement, data);
+	});	
   }
 }
 </script>
@@ -142,24 +150,30 @@ export default {
 		height:260px;
 		display: flex;
 	}
+
 	.value{
 		font-family: 'Raleway', sans-serif;
 		font-style: italic;
 		font-weight:700;
 		font-size: 90px;
 	}
+	
 	.widgets{
 		display: flex;
 	}
+
 	.temperature_value{
 		color: $blue;
 	}
+
 	.humidity_value{
 		color: $orange;
 	}
+
 	.moisture_value{
 		color: $blue;
 	}
+
 	.widgets>*{
 		border-radius: 12px;
 		padding: 20px 21px;
@@ -176,7 +190,7 @@ export default {
 	
 	.global.temperature{
 		background: $dark;
-		width: 454px;
+		width: 420px;
 		border-radius: 12px;
 		padding: 20px 21px;
 		margin:0 13px;
@@ -187,7 +201,7 @@ export default {
 	
 	.global.humidity{
 		background: $light_grey;
-		width: 454px;
+		width: 420px;
 		border-radius: 12px;
 		padding: 20px 21px;
 		margin:0 13px;
@@ -196,11 +210,14 @@ export default {
 	}
 	.global.controls{
 		background: $light_grey;
-		width: 274px;
+		width: 268px;
 		border-radius: 12px;
 		padding: 20px 21px;
 		margin:0 13px;
 		height: 100%;
+		// display:flex;
+		// align-items:center;
+		// justify-content:space-between;
   		box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.2);
 	}
 	.global.temperature .sub-heading{

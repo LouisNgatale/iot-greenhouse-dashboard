@@ -42,6 +42,9 @@ export default {
 
 .controls{
     display: flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
 
   /*Radio*/
   input[type="checkbox"]{
@@ -56,7 +59,7 @@ export default {
     transition:all .5s;
   }
   input:checked[type="checkbox"]{
-    border: 2px solid $bold-green;
+    border: 2px solid $blue;
   }
   input[type="checkbox"]:before{
     content: '';
@@ -72,7 +75,7 @@ export default {
   }
   input:checked[type="checkbox"]:before{
     left: 20px;
-    background: $bold-green;
+    background: $blue;
     transition: all .5s;
   }
 
@@ -86,6 +89,8 @@ export default {
 
          .irrigate{
             margin: 5px 0;
+            color: white;
+            font-size: 18px;
         }
         display: flex;
         flex-direction: column;
@@ -100,6 +105,8 @@ export default {
         }
         .fan{
             margin: 5px 0;
+            color: white;
+            font-size: 18px;
         }
         display: flex;
         flex-direction: column;

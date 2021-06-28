@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "babel-preset-stage-2": "^6.24.1",
     "express": "^4.17.1",
+    "firebase": "^8.6.8",
     "socket.io": "^4.0.0",
     "vue": "^2.5.11",
     "vue-axios": "^3.2.4",
