@@ -19,6 +19,12 @@
 </template>
 
 <script>
+import firebase from "../firebase";
+
+
+var irrigation_ref = firebase.ref("/irrigationState");
+var ventilation_ref = firebase.ref("/ventilationState");
+
 export default {
     data() {
         return{
@@ -27,12 +33,29 @@ export default {
         }
     },
   methods:{
-      ventilation(){
-        console.log(this.ventilate)
-      },
+    ventilation(){
+      ventilation_ref.set(this.ventilate,(error) => {
+        if (error) {
+          console.log(error)
+        }
+      });
+    },
     irrigation(){
-      console.log(this.irrigate)
+      irrigation_ref.set(this.irrigate,(error) => {
+        if (error) {
+          console.log(error)
+        }
+      });
     }
+  },
+  created() {
+    irrigation_ref.on('value', (snapshot) => {
+      this.irrigate = snapshot.val()
+	  });	
+
+    ventilation_ref.on('value',(snapshot)=> {
+      this.ventilate = snapshot.val();
+    })
   }
 }
 </script>

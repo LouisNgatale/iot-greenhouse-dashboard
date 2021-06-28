@@ -67,11 +67,11 @@
 						<img src="./assets/temperature.png">
 					</div>
 					<div class="sub-heading ">
-						Outside Temperature
+						Water level
 					</div>
 
-					<div class="mb-2 temperature_value value">
-						22.5
+					<div class="progress mt-2" style="height: 50px">
+						<div class="progress-bar " role="progressbar"  v-bind:style="{ width: values.water_level }" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 				</div>
 				<div class="global humidity">
@@ -132,8 +132,12 @@ export default {
     dht_ref.on('value', (snapshot) => {
 		this.values.temperature = snapshot.val().Temperature;
 		this.values.humidity = snapshot.val().Humidity;
-		// updateStarCount(postElement, data);
 	});	
+
+	water_level_ref.on('value',(snapshot)=> {
+		var height = snapshot.val();
+		this.values.water_level = `${(height/ 200) * 100}%`;
+	})
   }
 }
 </script>
@@ -240,5 +244,7 @@ export default {
 		color: $bold-green;
 		margin-top: 16px;
 	}
+
+	
 }
 </style>
