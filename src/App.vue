@@ -96,6 +96,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { mapState } from 'vuex';
 import {mapActions} from 'vuex';
 import {mapGetters} from 'vuex';
@@ -127,6 +128,13 @@ export default {
     ...mapActions([
       'getValues'
     ]),
+	weather_api:() =>{
+		axios.get("http://api.openweathermap.org/data/2.5/weather?q=Dar es Salaam&appid=8e08f28b8bfebe97d1cde65c3518b833")
+			.then(response => {
+				console.log(response.data);
+			})
+			.catch(err => console.log(err));	
+	}
   },
   created() {
     dht_ref.on('value', (snapshot) => {
@@ -137,7 +145,9 @@ export default {
 	water_level_ref.on('value',(snapshot)=> {
 		var height = snapshot.val();
 		this.values.water_level = `${(height/ 200) * 100}%`;
-	})
+	});
+
+	this.weather_api();
   }
 }
 </script>
