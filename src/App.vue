@@ -67,7 +67,7 @@
 						<img src="./assets/temperature.png">
 					</div>
 					<div class="sub-heading ">
-						Water level
+						Water level - {{ values.water_level }}
 					</div>
 
 					<div class="progress mt-2" style="height: 50px">
@@ -144,7 +144,7 @@ export default {
 
 	water_level_ref.on('value',(snapshot)=> {
 		var height = snapshot.val();
-		this.values.water_level = `${(height/ 200) * 100}%`;
+		this.values.water_level = `${Math.round(((19-height)/ 19) * 100)}%`;
 	});
 
 	this.weather_api();
