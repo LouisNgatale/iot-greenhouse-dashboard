@@ -11,7 +11,7 @@
 						<img src="./assets/sunny.png">
 					</div>
 					<div class="mb-2">
-						Good morning,
+						Good Afternoon,
 					</div>
 
 					<div class="mb-2">
@@ -53,7 +53,7 @@
 						</div>
 
 						<div class="mb-2 moisture_value value">
-							70%
+							{{moisture}}%
 						</div>
 					</div>
 				</div>
@@ -107,6 +107,7 @@ var dht_ref = firebase.ref("/DHT11");
 var water_level_ref = firebase.ref("/Water Level");
 var irrigation_ref = firebase.ref("/irrigationState");
 var ventilation_ref = firebase.ref("/ventilationState");
+var moisture_ref = firebase.ref("/Soil Moisture");
 
 export default {
   components: { Controls },
@@ -120,7 +121,8 @@ export default {
 		humidity:'',
 		water_level:'',
 		irrigation_state:'',
-		ventilation_state:''
+		ventilation_state:'',
+		moisture:''
 	  }
     }
   },
@@ -130,8 +132,8 @@ export default {
     ]),
 	weather_api:() =>{
 		axios.get("http://api.openweathermap.org/data/2.5/weather?q=Dar es Salaam&appid=8e08f28b8bfebe97d1cde65c3518b833")
-			.then(response => {
-				console.log(response.data);
+			.then(() => {
+				
 			})
 			.catch(err => console.log(err));	
 	}
@@ -144,7 +146,12 @@ export default {
 
 	water_level_ref.on('value',(snapshot)=> {
 		var height = snapshot.val();
-		this.values.water_level = `${Math.round(((19-height)/ 19) * 100)}%`;
+		this.values.water_level = `${Math.round(((19 - height)/ 19) * 100)}%`;
+	});
+
+	moisture_ref.on('value',(snapshot)=>{
+		this.moisture = snapshot.val();
+		console.log(this.moisture)
 	});
 
 	this.weather_api();
